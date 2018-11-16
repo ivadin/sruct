@@ -8,30 +8,31 @@ class Node:
 
 
 class BinTree:
-    __slots__ = 'root'
+    __slots__ = 'root', 'tree_view'
 
     def __init__(self):
         self.root = None
+        self.tree_view = ''
 
     def insert(self, value):
         if not self.root:
             self.root = Node(value)
         else:
-            self._insert(self.root, value)
+            self.__insert(self.root, value)
 
-    def _insert(self, cur_node, value):
+    def __insert(self, cur_node, value):
         if value < cur_node.v:
             if not cur_node.l:
                 cur_node.l = Node(value)
                 return
             else:
-                self._insert(cur_node.l, value)
+                self.__insert(cur_node.l, value)
         else:
             if not cur_node.r:
                 cur_node.r = Node(value)
                 return
             else:
-                self._insert(cur_node.r, value)
+                self.__insert(cur_node.r, value)
 
     def search(self, cur_node, value):
         if cur_node.v == value:
@@ -50,18 +51,18 @@ class BinTree:
     def __contains__(self, value):
         return self.search(self.root, value)
 
-    def rRl(self, node, l):
+    def __str__(self):
+        self.tree_view = ""
+        self.__rRl(self.root, 0)
+        return self.tree_view
+
+    def __rRl(self, node, l):
         if node:
-            self.rRl(node.r, l+1)
-            print(" "*4*l, end="")
+            self.__rRl(node.r, l+1)
+            self.tree_view += " "*4*l
             if node:
-                print(node.v)
-
-            self.rRl(node.l, l+1)
-
-    def print(self):
-        self.rRl(self.root, 0)
-        print()
+                self.tree_view += str(node.v) + ("\n")
+            self.__rRl(node.l, l+1)
 
 
 bt = BinTree()
@@ -69,4 +70,5 @@ bt.insert(1)
 bt.insert(2)
 bt.insert(0.5)
 bt.insert(3)
-bt.print()
+print(bt)
+print(0 in bt)
