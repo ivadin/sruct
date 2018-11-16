@@ -50,7 +50,23 @@ class BinTree:
     def __contains__(self, value):
         return self.search(self.root, value)
 
+    def rRl(self, node, l):
+        if node:
+            self.rRl(node.r, l+1)
+            print(" "*4*l, end="")
+            if node:
+                print(node.v)
+
+            self.rRl(node.l, l+1)
+
+    def print(self):
+        self.rRl(self.root, 0)
+        print()
+
 
 bt = BinTree()
 bt.insert(1)
 bt.insert(2)
+bt.insert(0.5)
+bt.insert(3)
+bt.print()
