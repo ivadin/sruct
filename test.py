@@ -23,6 +23,16 @@ class Testing(unittest.TestCase):
         inst.insert("asb")
         self.assertRaises(TypeError, inst.insert, 1)
 
+    # def test_remove(self);
+    #     inst = BinTree()
+    #     inst.insert(2)
+    #     inst.insert(1)
+    #     inst.insert(3)
+    #     inst.insert(4)
+    #     self.assertIn(3, inst)
+    #     inst.remove(3)
+    #     self.assertNotIn(3, inst)
+
 
 if __name__ == "__main__":
     unittest.main()

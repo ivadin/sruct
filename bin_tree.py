@@ -8,17 +8,17 @@ class Node:
 
 
 class BinTree:
-    __slots__ = 'root', 'tree_view'
+    __slots__ = '__root', '__tree_view'
 
     def __init__(self):
-        self.root = None
-        self.tree_view = ''
+        self.__root = None
+        self.__tree_view = ''
 
     def insert(self, value):
-        if not self.root:
-            self.root = Node(value)
+        if not self.__root:
+            self.__root = Node(value)
         else:
-            self.__insert(self.root, value)
+            self.__insert(self.__root, value)
 
     def __insert(self, cur_node, value):
         if value < cur_node.v:
@@ -34,41 +34,43 @@ class BinTree:
             else:
                 self.__insert(cur_node.r, value)
 
-    def search(self, cur_node, value):
+    def search(self, value):
+        return self.__search(self.__root, value)
+
+    def __search(self, cur_node, value):
         if cur_node.v == value:
             return True
         if value < cur_node.v:
             if cur_node.l:
-                return self.search(cur_node.l, value)
+                return self.__search(cur_node.l, value)
             else:
                 return False
         if value > cur_node.v:
             if cur_node.r:
-                return self.search(cur_node.r, value)
+                return self.__search(cur_node.r, value)
             else:
                 return False
 
     def __contains__(self, value):
-        return self.search(self.root, value)
+        return self.__search(self.__root, value)
 
     def __str__(self):
-        self.tree_view = ""
-        self.__rRl(self.root, 0)
-        return self.tree_view
+        self.__tree_view = ""
+        self.__rRl(self.__root, 0)
+        return self.__tree_view
 
     def __rRl(self, node, l):
         if node:
             self.__rRl(node.r, l+1)
-            self.tree_view += " "*4*l
+            self.__tree_view += " "*4*l
             if node:
-                self.tree_view += str(node.v) + ("\n")
+                self.__tree_view += str(node.v) + ("\n")
             self.__rRl(node.l, l+1)
 
+    # def remove(self, value):
+    #     return self.__remove(self.__root, value)
 
-# bt = BinTree()
-# bt.insert(1)
-# bt.insert(2)
-# bt.insert(0.5)
-# bt.insert(3)
-# print(bt)
-# print(0 in bt)
+    # def __remove(self, node, value):
+    #     if node.l and node.l.v == value:
+    #         tmp_value = node.l
+    #         del node.l
