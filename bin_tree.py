@@ -65,10 +65,10 @@ class BinTree:
             self.__rRl(node.l, l+1)
 
 
-bt = BinTree()
-bt.insert(1)
-bt.insert(2)
-bt.insert(0.5)
-bt.insert(3)
-print(bt)
-print(0 in bt)
+# bt = BinTree()
+# bt.insert(1)
+# bt.insert(2)
+# bt.insert(0.5)
+# bt.insert(3)
+# print(bt)
+# print(0 in bt)
