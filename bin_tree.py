@@ -64,7 +64,9 @@ class BinTree:
                 return None
 
     def __contains__(self, value):
-        return self.__search(self.__root, value)
+        if self.__root:
+            return self.__search(self.__root, value)
+        return None
 
     def __str__(self):
         self.__tree_view = ""
@@ -83,11 +85,12 @@ class BinTree:
         if self.__root:
             target_elements = self.__search(self.__root, value)
             if target_elements:
-                self.__remove(target_elements)
+                return self.__remove(target_elements)
             else:
                 print("No such element")
                 return False
-        return self.__root
+        print("Empty Tree")
+        return False
 
     def __remove(self, node):
         """CASE 1: 0 children"""
