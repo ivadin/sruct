@@ -10,6 +10,11 @@ class Node:
     def __str__(self):
         return "({}, {}, {})".format(self.l, self.v, self.r)
 
+    def __eq__(self, other):
+        if self.v == other.v:
+            return True
+        return False
+
 
 class BinTree:
     __slots__ = '__root', '__tree_view'
@@ -64,7 +69,7 @@ class BinTree:
     def __str__(self):
         self.__tree_view = ""
         self.__rRl(self.__root, 0)
-        return self.__tree_view
+        return self.__tree_view if len(self.__tree_view) > 0 else "Empty Tree"
 
     def __rRl(self, node, l):
         if node:
@@ -80,13 +85,26 @@ class BinTree:
             if target_elements:
                 self.__remove(target_elements)
             else:
+                print("No such element")
                 return False
         return self.__root
 
     def __remove(self, node):
+        """CASE 1: 0 children"""
         if not (node.l and node.r):
-            del node
-            return True
+            parent_node = node.parent
+            if parent_node:
+                if parent_node.l == node:
+                    parent_node.l = None
+                else:
+                    parent_node.r = None
+                return True
+            else:
+                self.__root = None
+                return True
+        """CASE 2: 1 children"""
+
+        """CASE 3: 2 children"""
 
 
 if __name__ == "__main__":
@@ -94,7 +112,7 @@ if __name__ == "__main__":
     inst.insert(2)
     inst.insert(1)
     inst.insert(3)
-    elem = inst.search(2)
+    # elem = inst.search(2)
     print(inst)
-    # inst.remove(1)
+    inst.remove(1)
     print(inst)
