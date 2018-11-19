@@ -1,3 +1,6 @@
+from time import time
+
+
 class Node:
     __slots__ = 'l', 'r', 'v', 'parent'
 
@@ -14,6 +17,19 @@ class Node:
         if self.v == other.v:
             return True
         return False
+
+
+def timer_count_and_runtime(func):
+    func.__call_count__ = 0
+
+    def wrapper(*args, **kwargs):
+        func.__call_count__ += 1
+        time_satrt = time()
+        res = func(*args, **kwargs)
+        print("{0} was called {1} times, runtime: {2}".format(
+            func.__name__, func.__call_count__, time()-time_satrt))
+        return res
+    return wrapper
 
 
 class BinTree:
@@ -135,6 +151,6 @@ if __name__ == "__main__":
     remove_values = (4, 6)
     for remove_value in remove_values:
         print("------------")
-        print(inst)
+        # print(inst)
         inst.remove(remove_value)
-        print(inst)
+        # print(inst)
