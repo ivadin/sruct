@@ -30,6 +30,9 @@ class BinTree:
             self.__insert(self.__root, value)
 
     def __insert(self, cur_node, value):
+        if value == cur_node.v:
+            print("Such element already in tree")
+            return
         if value < cur_node.v:
             if not cur_node.l:
                 cur_node.l = Node(value)
@@ -94,7 +97,7 @@ class BinTree:
 
     def __remove(self, node):
         """CASE 1: 0 children"""
-        if not (node.l and node.r):
+        if not node.l and not node.r:
             parent_node = node.parent
             if parent_node:
                 if parent_node.l == node:
@@ -106,16 +109,32 @@ class BinTree:
                 self.__root = None
                 return True
         """CASE 2: 1 children"""
-
+        if node.l or node.r:
+            target_node = node.l or node.r
+            parent_node = node.parent
+            if parent_node:
+                if parent_node.l == node:
+                    parent_node.l = None
+                    parent_node.l = target_node
+                    target_node.parent = parent_node
+                else:
+                    parent_node.r = None
+                    parent_node.r = target_node
+                    target_node.parent = parent_node
+                return True
+            else:
+                self.__root = node
         """CASE 3: 2 children"""
 
 
 if __name__ == "__main__":
     inst = BinTree()
-    inst.insert(2)
-    inst.insert(1)
-    inst.insert(3)
-    # elem = inst.search(2)
-    print(inst)
-    inst.remove(1)
-    print(inst)
+    values = (2, 1, 4, 6, 5)
+    for i in values:
+        inst.insert(i)
+    remove_values = (4, 6)
+    for remove_value in remove_values:
+        print("------------")
+        print(inst)
+        inst.remove(remove_value)
+        print(inst)

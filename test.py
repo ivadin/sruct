@@ -2,7 +2,7 @@ import unittest
 from bin_tree import BinTree
 
 
-class Testing(unittest.TestCase):
+class TestingInsert(unittest.TestCase):
     def test_insert_digits(self):
         inst = BinTree()
         inst.insert(2)
@@ -23,6 +23,8 @@ class Testing(unittest.TestCase):
         inst.insert("asb")
         self.assertRaises(TypeError, inst.insert, 1)
 
+
+class TestingRemove(unittest.TestCase):
     def test_remove_from_Empty(self):
         inst = BinTree()
         self.assertFalse(inst.remove(1))
@@ -44,6 +46,17 @@ class Testing(unittest.TestCase):
         self.assertIn(remove_value, inst)
         inst.remove(remove_value)
         self.assertNotIn(remove_value, inst)
+
+    def test_remove_node_1_children(self):
+        inst = BinTree()
+        values = (2, 1, 4, 6, 5)
+        for i in values:
+            inst.insert(i)
+        remove_values = [4, 6]
+        for remove_value in remove_values:
+            self.assertIn(remove_value, inst)
+            inst.remove(remove_value)
+            self.assertNotIn(remove_value, inst)
 
 
 if __name__ == "__main__":
